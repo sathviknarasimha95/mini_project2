@@ -76,7 +76,7 @@ public class Orderadapter extends ArrayAdapter<String> {
     {
         boolean wrapInScrollView = true;
 
-        MaterialDialog md = new MaterialDialog.Builder(view.getRootView().getContext())
+        final MaterialDialog md = new MaterialDialog.Builder(view.getRootView().getContext())
                 .title("Add to Cart")
                 .positiveText("Add")
                 .customView(R.layout.number_picker, wrapInScrollView)
@@ -112,14 +112,17 @@ public class Orderadapter extends ArrayAdapter<String> {
                 map.put("Type",item_type[position]);
                 map.put("ID",(i++)+"");
                 //Toast.makeText(context,i+"",Toast.LENGTH_LONG).show();
+                addTocart(map);
+                md.dismiss();
+
 
             }
         });
     }
-    public void addTocart()
+    public void addTocart(HashMap map)
     {
         SendToCart sendToCart = SendToCart.getInstance();
-        sendToCart.setOrderList(orderList);
+        sendToCart.setOrderList(map);
 
     }
 }

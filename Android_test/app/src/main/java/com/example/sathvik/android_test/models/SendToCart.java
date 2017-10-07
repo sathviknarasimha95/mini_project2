@@ -1,5 +1,7 @@
 package com.example.sathvik.android_test.models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,9 +31,9 @@ public class SendToCart {
         return sendToCart;
     }
 
-    public void setOrderList(ArrayList<HashMap<String,String>> ol)
+    public void setOrderList(HashMap mp)
     {
-            orderList = ol;
+        orderList.add(mp);
     }
 
 }

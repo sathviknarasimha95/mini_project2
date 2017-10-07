@@ -32,6 +32,7 @@
         </activity>
         <activity android:name=".ui.Order" />
         <activity android:name=".ui.BaseActivity" />
+        <activity android:name=".ui.Cart"></activity>
     </application>
 
 </manifest>
