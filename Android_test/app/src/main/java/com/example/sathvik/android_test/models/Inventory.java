@@ -21,6 +21,31 @@ public class Inventory {
     @Expose
     private String type;
 
+    @SerializedName("company")
+    @Expose
+    private String company;
+
+    @SerializedName("price")
+    @Expose
+
+    private String price;
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }
@@ -60,6 +85,8 @@ public class Inventory {
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", type='" + type + '\'' +
+                ", company='" + company + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

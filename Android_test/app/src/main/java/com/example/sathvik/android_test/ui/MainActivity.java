@@ -1,17 +1,26 @@
 package com.example.sathvik.android_test.ui;
 
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
@@ -22,22 +31,34 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.sathvik.android_test.R;
+import com.example.sathvik.android_test.adapters.ProdMenuAdapter;
 import com.example.sathvik.android_test.models.ProdMenu;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class MainActivity extends BaseActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     String FileName = "Login_fine";
     private SliderLayout Imgslider;
     private RecyclerView recyclerView;
     private ProdMenuAdapter adapter;
     private List<ProdMenu> menuList;
+    private Drawer result;
+    private CoordinatorLayout coordinatorLayout;
+    private ActionBarDrawerToggle toggle;
 
 
     @Override
@@ -45,21 +66,41 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id
+                .coordinatorLayout);
         setSupportActionBar(toolbar);
-        /*Button order = (Button) findViewById(R.id.order);
-
-        order.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v)
-            {
-                Intent gotoOrder = new Intent(getApplicationContext(),Order.class);
-                startActivity(gotoOrder);
-            }
-        }
-
-        );*/
+        navbar(toolbar,savedInstanceState);
         imgslider();
+        check_network();
         create_recyclerview();
+    }
+    // navigation Drawer
+    public void navbar(Toolbar toolbar,Bundle savedInstanceState)
+    {
+        result = new DrawerBuilder()
+                .withActivity(this)
+                .withHeader(R.layout.header)
+                .withToolbar(toolbar)
+                .withSavedInstance(savedInstanceState)
+                .addDrawerItems(new PrimaryDrawerItem().withName("Profile"),new PrimaryDrawerItem().withName("Orders History"),new PrimaryDrawerItem().withName("Logout"))
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+
+                                long id = drawerItem.getIdentifier();
+                                int ch = (int)id%10;
+                                //Toast.makeText(getApplicationContext(),ch+"",Toast.LENGTH_SHORT).show();
+                                if(ch==-5 || ch==-1) {
+                                    logout();
+                                }
+                        return false;
+                    }
+                }).build();
+        result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
     }
     // image slider
     public void imgslider()
@@ -68,11 +109,11 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
         HashMap<String,String> url_maps = new HashMap<String, String>();
         HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
-        file_maps.put("Img0",R.drawable.imgslider_4);
-        file_maps.put("Img1",R.drawable.imgslider_1);
-        file_maps.put("Img2",R.drawable.imgslider_2);
-        file_maps.put("Img3",R.drawable.imgslider_3);
-        file_maps.put("Img4", R.drawable.med1);
+        file_maps.put("Img0",R.raw.imgslider_4);
+        file_maps.put("Img1",R.raw.imgslider_1);
+        file_maps.put("Img2",R.raw.imgslider_2);
+        file_maps.put("Img3",R.raw.imgslider_3);
+        file_maps.put("Img4", R.raw.med1);
 
         for(String name : file_maps.keySet()){
             DefaultSliderView defaultSliderView = new DefaultSliderView(this);
@@ -141,11 +182,11 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     }
     private void prepareMenu() {
         int[] covers = new int[]{
-                R.drawable.all,
-                R.drawable.tab,
-                R.drawable.syruo,
-                R.drawable.inj,
-                R.drawable.scope,
+                R.raw.all,
+                R.raw.tab,
+                R.raw.syruo,
+                R.raw.inj,
+                R.raw.scope,
                 };
 
         ProdMenu a = new ProdMenu("All",covers[0]);
@@ -211,7 +252,8 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu);
+        /*getMenuInflater().inflate(R.menu.menu_main, menu);*/
         return true;
     }
 
@@ -220,38 +262,6 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            AlertDialog.Builder logoutalert = new AlertDialog.Builder(MainActivity.this);
-            logoutalert.setTitle("Logout");
-            logoutalert.setMessage("Are you Sure?");
-            logoutalert.setCancelable(false);
-            String YesButtonText = "Yes";
-            String NoButtonText = "No";
-            logoutalert.setPositiveButton(YesButtonText, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-
-
-            SharedPreferences LoginSharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
-            LoginSharedPref.edit().remove("Username").commit();
-            LoginSharedPref.edit().remove("Token").commit();
-            Intent gotoslogin = new Intent(getApplicationContext(),Login.class);
-            startActivity(gotoslogin);
-                }
-            });
-            logoutalert.setNegativeButton(NoButtonText, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-            logoutalert.show();
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -279,5 +289,24 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         });
         alert.show();
 
+    }
+    public void check_network()
+    {
+        ConnectivityManager cm =
+                (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        Snackbar snackbar = Snackbar
+                .make(coordinatorLayout, "Internet is Connected", Snackbar.LENGTH_LONG);
+
+        snackbar.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Imgslider.destroyDrawingCache();
+        super.onDestroy();
     }
 }

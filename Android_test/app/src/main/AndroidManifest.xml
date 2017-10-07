@@ -3,6 +3,7 @@
     package="com.example.sathvik.android_test">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -29,12 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Navigation_Menu"
-            android:label="@string/title_activity_navigation__menu"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".models.Order" />
-        <activity android:name=".ui.Order"></activity>
+        <activity android:name=".ui.Order" />
+        <activity android:name=".ui.BaseActivity" />
     </application>
 
 </manifest>

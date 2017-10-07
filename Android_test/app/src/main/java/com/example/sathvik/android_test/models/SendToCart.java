@@ -1,0 +1,37 @@
+package com.example.sathvik.android_test.models;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * Created by sathvik on 10/7/2017.
+ */
+
+//this is a singleton class
+
+public class SendToCart {
+    private static volatile SendToCart sendToCart;
+    private ArrayList<HashMap<String, String>> orderList = new ArrayList<HashMap<String, String>>();;
+
+    private SendToCart()
+    {
+        if (sendToCart != null) {
+            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+        }
+    }
+
+    public static SendToCart getInstance() {
+        if (sendToCart == null) { //if there is no instance available... create new one
+            synchronized (SendToCart.class) {
+                if (sendToCart == null) sendToCart = new SendToCart();
+            }
+        }
+        return sendToCart;
+    }
+
+    public void setOrderList(ArrayList<HashMap<String,String>> ol)
+    {
+            orderList = ol;
+    }
+
+}

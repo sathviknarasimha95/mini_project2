@@ -10,18 +10,19 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="355dp"
+        android:layout_height="466dp"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/med1"
+        android:src="@raw/med1"
         android:onClick="onImageClick"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="-1dp" />
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="21dp" />
 
 
 </android.support.constraint.ConstraintLayout>

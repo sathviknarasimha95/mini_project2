@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:gravity="left"
-                android:src="@drawable/ic_signup" />
+                android:src="@raw/ic_signup" />
 
             <TextView
                 android:layout_width="0dp"
@@ -83,7 +83,7 @@
             android:id="@+id/btnClear"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorSecondary"
             android:background="#fff"
             android:theme="@style/AppTheme.ButtonBorderless"
             android:text="Clear"

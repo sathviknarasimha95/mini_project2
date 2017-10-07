@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://139.59.60.164:9002/")
+                        .baseUrl(getApplicationContext().getString(R.string.uri))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 //Toast.makeText(Login.this,"Button is clicked",Toast.LENGTH_SHORT).show();

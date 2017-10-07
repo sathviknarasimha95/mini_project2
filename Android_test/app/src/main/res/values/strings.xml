@@ -9,4 +9,13 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="uri">http://139.59.60.164:2304/</string>
+    <string name="number_picker_formatter">%02d</string>
+    <string name="roboto_light">sans-serif-light</string>
+    <string name="cart"></string>
+    <string name="title_activity_nav_drawer">Sanjanaa Pharma</string>
+    <string name="nav"></string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
 </resources>

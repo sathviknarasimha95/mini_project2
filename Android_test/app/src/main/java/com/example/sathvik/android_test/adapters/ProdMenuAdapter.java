@@ -1,4 +1,4 @@
-package com.example.sathvik.android_test.ui;
+package com.example.sathvik.android_test.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.sathvik.android_test.R;
 import com.example.sathvik.android_test.models.ProdMenu;
+import com.example.sathvik.android_test.ui.Order;
 
 import java.util.List;
 

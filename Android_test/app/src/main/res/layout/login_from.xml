@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5fb0c9"
+    android:background="#439889"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="true">
 
@@ -99,7 +99,7 @@
         android:layout_marginTop="0dp"
         android:background="@drawable/user_profile_image_background"
         android:elevation="15dp"
-        android:src="@drawable/profile_icon1" />
+        android:src="@raw/profile_icon1" />
 
     <TextView
         android:id="@+id/login_title"
