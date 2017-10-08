@@ -33,7 +33,11 @@ public class BaseActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+            if(id == R.id.cart_button)
+            {
+                Intent cart = new Intent(getApplicationContext(),Cart.class);
+                startActivity(cart);
+            }
         //noinspection SimplifiableIfStatement
         return super.onOptionsItemSelected(item);
     }

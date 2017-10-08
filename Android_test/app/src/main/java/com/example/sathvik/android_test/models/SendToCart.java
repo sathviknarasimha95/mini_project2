@@ -36,4 +36,9 @@ public class SendToCart {
         orderList.add(mp);
     }
 
+    public ArrayList<HashMap<String,String>> getOrderList()
+    {
+        return orderList;
+    }
+
 }
