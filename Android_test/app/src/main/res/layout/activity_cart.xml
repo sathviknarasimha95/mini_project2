@@ -15,24 +15,42 @@
         android:textStyle="bold"
         tools:layout_editor_absoluteX="162dp"
         tools:layout_editor_absoluteY="16dp"
+        android:layout_marginTop="22dp"
         android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/place_order"
+        android:layout_alignStart="@+id/place_order" />
+    <ListView
+    android:layout_width="match_parent"
+    android:id="@+id/cart_list"
+    android:layout_height="400dp"
+        android:layout_below="@+id/textView6"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="128dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="13dp" />
-    <include layout="@layout/cart_list"
-        />
+        android:layout_alignParentStart="true" />
     <com.github.rubensousa.raiflatbutton.RaiflatButton
-        android:id="@+id/addtocart"
+        android:id="@+id/place_order"
         style="@style/Base.Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add to Cart"
+        android:text="Place Order"
         android:textSize="15sp"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_above="@+id/place_order"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/cart_list"/>
 
 
 </RelativeLayout>

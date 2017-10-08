@@ -71,7 +71,7 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
         setSupportActionBar(toolbar);
         navbar(toolbar,savedInstanceState);
         imgslider();
-        check_network();
+        //check_network();
         create_recyclerview();
     }
     // navigation Drawer

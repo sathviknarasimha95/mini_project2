@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.sathvik.android_test.R;
+import com.example.sathvik.android_test.models.SendToCart;
 
 /**
  * Created by sathvik on 10/4/2017.
@@ -67,5 +68,10 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
         logoutalert.show();
+    }
+    protected void onDestroy() {
+        //SendToCart clear = SendToCart.getInstance();
+        //clear.cleardata();
+        super.onDestroy();
     }
 }

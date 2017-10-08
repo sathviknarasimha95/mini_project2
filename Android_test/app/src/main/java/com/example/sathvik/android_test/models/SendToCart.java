@@ -41,4 +41,9 @@ public class SendToCart {
         return orderList;
     }
 
+    public void cleardata()
+    {
+        orderList.clear();
+    }
+
 }
