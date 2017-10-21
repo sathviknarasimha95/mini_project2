@@ -10,23 +10,29 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sathvik.android_test.R;
+import com.example.sathvik.android_test.models.SendToCart;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by sathvik on 10/8/2017.
  */
 
 public class Cartadapter extends ArrayAdapter<String> {
-        private String[] cart_item_name;
-        private String[] cart_item_no;
-        private String[] cart_item_price;
+        private ArrayList<String> cart_item_name = new ArrayList<String>();
+        private ArrayList<String> cart_item_no = new ArrayList<String>();
+        private ArrayList<String> cart_item_price = new ArrayList<String>();
         private Context context;
         float total = 0;
         TextView totals;
 
-    public Cartadapter(Context context,String[] cart_item_name,String[] cart_item_no,String[] cart_item_price,float total,TextView totals)
+    public Cartadapter(Context context,ArrayList cart_item_name,ArrayList cart_item_no,ArrayList cart_item_price,float total,TextView totals)
     {
         super(context, R.layout.cart_list, cart_item_name);
         this.context = context;
@@ -39,7 +45,7 @@ public class Cartadapter extends ArrayAdapter<String> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -49,11 +55,23 @@ public class Cartadapter extends ArrayAdapter<String> {
         TextView cart_no = (TextView)rowView.findViewById(R.id.cart_item_no);
         TextView cart_price = (TextView)rowView.findViewById(R.id.cart_item_price);
         Button placeorder = (Button)rowView.findViewById(R.id.place_order);
-        cart_name.setText(cart_item_name[position]);
-        cart_price.setText(cart_item_price[position]);
-        cart_no.setText("X "+cart_item_no[position]);
+        cart_name.setText(cart_item_name.get(position));
+        cart_price.setText(cart_item_no.get(position));
+        cart_no.setText("X "+cart_item_price.get(position));
         totals.setText("Total="+total);
+
+        /*rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context,position+"",Toast.LENGTH_SHORT).show();
+                SendToCart sc = SendToCart.getInstance();
+
+
+            }
+        });*/
 
         return  rowView;
     }
+
+
 }

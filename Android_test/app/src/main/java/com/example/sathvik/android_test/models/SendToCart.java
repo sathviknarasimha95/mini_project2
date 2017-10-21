@@ -12,8 +12,8 @@ import java.util.HashMap;
 //this is a singleton class
 
 public class SendToCart {
-    private static volatile SendToCart sendToCart;
-    private ArrayList<HashMap<String, String>> orderList = new ArrayList<HashMap<String, String>>();;
+    private static SendToCart sendToCart;
+    public ArrayList<HashMap<String, String>> orderList = new ArrayList<HashMap<String, String>>();;
 
     private SendToCart()
     {
@@ -34,6 +34,11 @@ public class SendToCart {
     public void setOrderList(HashMap mp)
     {
         orderList.add(mp);
+    }
+
+    public void removeOrder(int position)
+    {
+        orderList.remove(position);
     }
 
     public ArrayList<HashMap<String,String>> getOrderList()
