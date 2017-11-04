@@ -10,7 +10,4 @@
         android:icon="@drawable/ic_add_shopping_cart_white_24dp"
         app:showAsAction="always"
         />
-
-
-
 </menu>

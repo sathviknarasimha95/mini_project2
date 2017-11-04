@@ -32,7 +32,11 @@
         </activity>
         <activity android:name=".ui.Order" />
         <activity android:name=".ui.BaseActivity" />
-        <activity android:name=".ui.Cart"></activity>
+        <activity android:name=".ui.Cart" />
+        <activity android:name=".ui.AdminActivity" />
+        <activity android:name=".ui.OrderList_Customer" />
+        <activity android:name=".ui.OrderDetailCustomer" />
+        <activity android:name=".ui.ViewOrderAdmin"></activity>
     </application>
 
 </manifest>

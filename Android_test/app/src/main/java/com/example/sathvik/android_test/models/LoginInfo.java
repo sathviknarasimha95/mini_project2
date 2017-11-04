@@ -17,6 +17,30 @@ public class LoginInfo {
     @SerializedName("username")
     @Expose
     private String username;
+    @SerializedName("role")
+    @Expose
+    private String role;
+    @SerializedName("CustomerId")
+    @Expose
+    private int CustomerId;
+
+    public int getCustomerId() {
+        return CustomerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        CustomerId = customerId;
+    }
+
+
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getUsername() {
         return username;
@@ -48,6 +72,8 @@ public class LoginInfo {
                 "status='" + status + '\'' +
                 ", token='" + token + '\'' +
                 ", username='" + username + '\'' +
+                ", role='" + role + '\'' +
+                ", CustomerId='" + CustomerId + '\'' +
                 '}';
     }
 }

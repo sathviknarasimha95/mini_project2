@@ -90,9 +90,14 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
 
                                 long id = drawerItem.getIdentifier();
                                 int ch = (int)id%10;
-                                //Toast.makeText(getApplicationContext(),ch+"",Toast.LENGTH_SHORT).show();
-                                if(ch==-5 || ch==-1) {
+                                Toast.makeText(getApplicationContext(),ch+"",Toast.LENGTH_SHORT).show();
+                                if(ch==-5 || ch==-1 || ch==-7) {
                                     logout();
+                                }
+                                else if(ch==-6 || ch==-2 || ch==-8)
+                                {
+                                    Intent getordercust = new Intent(getApplicationContext(),OrderList_Customer.class);
+                                    startActivity(getordercust);
                                 }
                         return false;
                     }

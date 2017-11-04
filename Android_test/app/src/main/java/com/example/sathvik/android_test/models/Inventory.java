@@ -8,85 +8,113 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Inventory {
-    @SerializedName("id")
+    @SerializedName("ProductId")
     @Expose
-    private int id;
-    @SerializedName("name")
+    private String ProductId;
+    @SerializedName("ProductName")
     @Expose
-    private String name;
-    @SerializedName("category")
+    private String ProductName;
+    @SerializedName("ProductCat")
     @Expose
-    private String category;
-    @SerializedName("type")
+    private String ProductCat;
+    @SerializedName("ProductType")
     @Expose
-    private String type;
+    private String ProductType;
 
-    @SerializedName("company")
+    @SerializedName("ProductCompany")
     @Expose
-    private String company;
+    private String ProductCompany;
 
-    @SerializedName("price")
+    @SerializedName("ProductPrice")
     @Expose
 
-    private String price;
+    private String ProductPrice;
 
-    public String getCompany() {
-        return company;
-    }
+    @SerializedName("ProductDesc")
+    @Expose
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
+    private String ProductDesc;
 
-    public String getPrice() {
-        return price;
-    }
+    @SerializedName("ProductUnit")
+    @Expose
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    private String ProductUnit;
 
     @Override
     public String toString() {
         return "{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", type='" + type + '\'' +
-                ", company='" + company + '\'' +
-                ", price=" + price +
+                "ProductId=" + ProductId +
+                ", ProductName='" + ProductName + '\'' +
+                ", ProductCat='" + ProductCat + '\'' +
+                ", ProductType='" + ProductType + '\'' +
+                ", ProductCompany='" + ProductCompany + '\'' +
+                ", ProductPrice='" + ProductPrice + '\'' +
+                ", ProductDesc='" + ProductDesc + '\'' +
+                ", ProductUnit='" + ProductUnit + '\'' +
                 '}';
+    }
+
+    public String getProductId() {
+        return ProductId;
+    }
+
+    public void setProductId(String productId) {
+        ProductId = productId;
+    }
+
+    public String getProductName() {
+        return ProductName;
+    }
+
+    public void setProductName(String productName) {
+        ProductName = productName;
+    }
+
+    public String getProductCat() {
+        return ProductCat;
+    }
+
+    public void setProductCat(String productCat) {
+        ProductCat = productCat;
+    }
+
+    public String getProductType() {
+        return ProductType;
+    }
+
+    public void setProductType(String productType) {
+        ProductType = productType;
+    }
+
+    public String getProductCompany() {
+        return ProductCompany;
+    }
+
+    public void setProductCompany(String productCompany) {
+        ProductCompany = productCompany;
+    }
+
+    public String getProductPrice() {
+        return ProductPrice;
+    }
+
+    public void setProductPrice(String productPrice) {
+        ProductPrice = productPrice;
+    }
+
+    public String getProductDesc() {
+        return ProductDesc;
+    }
+
+    public void setProductDesc(String productDesc) {
+        ProductDesc = productDesc;
+    }
+
+    public String getProductUnit() {
+        return ProductUnit;
+    }
+
+    public void setProductUnit(String productUnit) {
+        ProductUnit = productUnit;
     }
 }

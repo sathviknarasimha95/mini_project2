@@ -49,7 +49,7 @@ public class Order extends BaseActivity{
         Inventory_list inventory_list = retrofit.create(Inventory_list.class);
         Call<List<Inventory>> call = inventory_list.getData();
         progressbar();
-        dismissprogressbar();
+
         call.enqueue(new Callback<List<Inventory>>() {
             @Override
             public void onResponse(Call<List<Inventory>> call, Response<List<Inventory>> response) {
@@ -59,6 +59,7 @@ public class Order extends BaseActivity{
                 //String[] names = new String[5];
                 int j = response.body().size();
                 String[] prod_name = new String[response.body().size()];
+                String[] prod_id = new String[response.body().size()];
                 String[] prod_type = new String[response.body().size()];
                 String[] prod_company = new String[response.body().size()];
                 String[] prod_price = new String[response.body().size()];
@@ -66,18 +67,19 @@ public class Order extends BaseActivity{
 
                 int i=0;
                 for (Inventory feed : response.body()) {
-                    Log.i("Order", feed.getName());
-                    prod_name[i] = feed.getName();
-                    prod_type[i] = feed.getType();
-                    prod_company[i] = feed.getCompany();
-                    prod_price[i] = feed.getPrice();
+                    Log.i("Order", feed.getProductName());
+                    prod_id[i] = feed.getProductId();
+                    prod_name[i] = feed.getProductName();
+                    prod_type[i] = feed.getProductType();
+                    prod_company[i] = feed.getProductCompany();
+                    prod_price[i] = feed.getProductPrice();
                     i++;
                 }
 
                 List<Inventory> names = response.body();
                 //final ArrayAdapter adapter = new ArrayAdapter(Order.this,R.layout.listorder,R.id.list_order,datas);
 
-                final Orderadapter adapter = new Orderadapter(getApplicationContext(),prod_name,prod_type,prod_company,prod_price);
+                final Orderadapter adapter = new Orderadapter(getApplicationContext(),prod_name,prod_type,prod_company,prod_price,prod_id);
                 lv.setAdapter(adapter);
                 sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
@@ -102,6 +104,7 @@ public class Order extends BaseActivity{
                 Toast.makeText(Order.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
+        dismissprogressbar();
 
     }
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,7 +140,7 @@ public class Order extends BaseActivity{
             public void run() {
                 progress.dismiss();
             }
-        }, 1000);
+        }, 1);
     }
 
 

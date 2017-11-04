@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,17 +36,19 @@ public class Orderadapter extends ArrayAdapter<String> {
     private String[] item_type;
     private String[] prod_company;
     private String[] item_price;
+    private String[] item_id;
     private ArrayList<HashMap<String,String>> orderList;
     private HashMap<String,String> map;
     private static int i;
 
-    public Orderadapter(Context context, String[] order_items,String[] item_type,String[] prod_company,String[] item_price) {
+    public Orderadapter(Context context, String[] order_items,String[] item_type,String[] prod_company,String[] item_price,String[] item_id) {
         super(context, R.layout.listorder, order_items);
         this.context = context;
         this.order_items = order_items;
         this.item_type = item_type;
         this.prod_company = prod_company;
         this.item_price = item_price;
+        this.item_id = item_id;
     }
 
     @Override
@@ -66,13 +69,13 @@ public class Orderadapter extends ArrayAdapter<String> {
         addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                show_dialog(view,order_items,position,item_price);
+                show_dialog(view,order_items,position,item_price,item_id);
                 //Toast.makeText(context,order_items[position],Toast.LENGTH_LONG).show();
             }
         });
         return rowView;
     }
-    public void show_dialog(View view, final String[] order_items, final int position, String[] item_price)
+    public void show_dialog(View view, final String[] order_items, final int position, String[] item_price,String[] item_id)
     {
         boolean wrapInScrollView = true;
 
@@ -90,6 +93,7 @@ public class Orderadapter extends ArrayAdapter<String> {
         final TextView price_dialog = (TextView)vie.findViewById(R.id.order_price_dialog);
         item_dialog.setText(order_items[position]);
         price_dialog.setText(item_price[position]);
+        final String prod_id = item_id[position];
         final Double temp = Double.parseDouble(item_price[position]);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -107,6 +111,7 @@ public class Orderadapter extends ArrayAdapter<String> {
                 map = new HashMap<String, String>();
                 //Toast.makeText(context,item_dialog.getText().toString(),Toast.LENGTH_LONG).show();
                 map.put("ItemName",item_dialog.getText().toString());
+                map.put("ItemId",prod_id);
                 map.put("Price",price_dialog.getText().toString());
                 map.put("No",numberPicker.getValue()+"");
                 map.put("Type",item_type[position]);
@@ -114,7 +119,6 @@ public class Orderadapter extends ArrayAdapter<String> {
                 //Toast.makeText(context,i+"",Toast.LENGTH_LONG).show();
                 addTocart(map);
                 md.dismiss();
-
 
             }
         });
@@ -125,5 +129,6 @@ public class Orderadapter extends ArrayAdapter<String> {
         sendToCart.setOrderList(map);
 
     }
+
 }
 

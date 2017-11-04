@@ -62,13 +62,22 @@ public class Login extends AppCompatActivity {
                         String Logininfo = data.getStatus().toString();
                         String Token = data.getToken().toString();
                         String Username = data.getUsername().toString();
+                        String role = data.getRole().toString();
+                        int CustomerId = data.getCustomerId();
                         Log.i("Login", "info:" + Logininfo);
-                        if(Logininfo.equals("login_successfull")) {
-                            saveLoginDetails(Logininfo,Token,Username);
+                        if(Logininfo.equals("login_successfull") && role.equals("user")) {
+                            saveLoginDetails(Logininfo,Token,Username,role,CustomerId);
                             //readDetails();
                             Intent mains = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(mains);
-                        } else if(Logininfo.equals("No_such_users_found"))
+                        }else if(Logininfo.equals("login_successfull") && role.equals("admin"))
+                        {
+                            saveLoginDetails(Logininfo,Token,Username,role,CustomerId);
+                            //readDetails();
+                            Intent mains = new Intent(getApplicationContext(), AdminActivity.class);
+                            startActivity(mains);
+                        }
+                        else if(Logininfo.equals("No_such_users_found"))
                         {
                             Toast.makeText(Login.this,"Email does not exist",Toast.LENGTH_LONG).show();
                         }
@@ -97,7 +106,7 @@ public class Login extends AppCompatActivity {
 
     }
 
-    public void saveLoginDetails(String Status,String Token,String Name)
+    public void saveLoginDetails(String Status,String Token,String Name,String role,int CustomerId)
     {
 
         SharedPreferences LoginSharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
@@ -105,6 +114,10 @@ public class Login extends AppCompatActivity {
         editor.putString("Login_Status",Status.toString());
         editor.putString("Username",Name.toString());
         editor.putString("Token",Token.toString());
+        editor.putString("Role",role.toString());
+        editor.putString("CustomerId",CustomerId+"");
+        Log.i("CustomerId",CustomerId+"");
+
         editor.commit();
         Log.i("Login","Data written successfuly");
         return;

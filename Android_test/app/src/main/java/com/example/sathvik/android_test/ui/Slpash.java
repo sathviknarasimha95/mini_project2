@@ -37,16 +37,23 @@ public class Slpash extends Activity {
                 String defaultValue = "DefaultName";
                 String username = LoginSharedPref.getString("Username",defaultValue);
                 String Token = LoginSharedPref.getString("Token",defaultValue);
+                String role = LoginSharedPref.getString("Role",defaultValue);
                 Log.i("Login","on splash   "+username);
                 Log.i("Login","on splash   "+Token);
+                Log.i("Login","on splash   "+role);
                 if(username.equals("DefaultName") && Token.equals("DefaultName")) {
                     // create Intent for next activity and call startActivity with it
                      Intent Login = new Intent(getApplicationContext(),Login.class);
                      startActivity(Login);
                 }
-                else
+                else if(role.equals("user"))
                 {
                     Intent Home = new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(Home);
+                }
+                else if(role.equals("admin"))
+                {
+                    Intent Home = new Intent(getApplicationContext(),AdminActivity.class);
                     startActivity(Home);
                 }
             }

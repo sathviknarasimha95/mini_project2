@@ -33,7 +33,41 @@ public class SendToCart {
 
     public void setOrderList(HashMap mp)
     {
-        orderList.add(mp);
+        String t = mp.get("ItemName").toString();
+        float price = Float.parseFloat(mp.get("Price").toString());
+        int no = Integer.parseInt(mp.get("No").toString());
+        if(!updateOrderList(t,price,no)) {
+            orderList.add(mp);
+        }
+
+
+    }
+    public boolean updateOrderList(String t,float price,int no)
+    {
+        int flag=0;
+        for(int i = 0;i<orderList.size();i++)
+        {
+            System.out.println("Hashmap="+orderList.get(i));
+            System.out.println("Hashmapt="+t);
+            if(orderList.get(i).containsValue(t))
+            {
+                float temps = Float.parseFloat(orderList.get(i).get("Price")) + price;
+                orderList.get(i).put("Price",temps+"");
+                //orderList.get(i).replace("Price",temps+"");
+                //orderList.get(i).replace("Price",temps+"");
+                int tem = Integer.parseInt(orderList.get(i).get("No")) + no;
+                orderList.get(i).put("No",tem+"");
+                flag=1;
+            }
+        }
+        if(flag==1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void removeOrder(int position)
@@ -44,6 +78,17 @@ public class SendToCart {
     public ArrayList<HashMap<String,String>> getOrderList()
     {
         return orderList;
+    }
+
+    public float getTotal()
+    {
+        float total = 0;
+        for(int i =0;i<orderList.size();i++)
+        {
+            String temp = orderList.get(i).get("Price");
+            total = total+Float.parseFloat(temp);
+        }
+        return total;
     }
 
     public void cleardata()

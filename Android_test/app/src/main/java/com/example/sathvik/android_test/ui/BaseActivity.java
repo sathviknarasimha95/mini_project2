@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.sathvik.android_test.R;
@@ -23,8 +24,17 @@ public class BaseActivity extends AppCompatActivity {
     MaterialDialog progress;
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        SharedPreferences LoginSharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
+        String defaultValue = "DefaultName";
+        String role = LoginSharedPref.getString("Role",defaultValue);
+        //Toast.makeText(getApplicationContext(),role,Toast.LENGTH_SHORT).show();
+        if(role.equals("user")) {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+        }
+        else
+        {
+            getMenuInflater().inflate(R.menu.admin_menu, menu);
+        }
         return true;
     }
 
@@ -34,6 +44,10 @@ public class BaseActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+            if(id== R.id.admin_logout)
+            {
+                logout();
+            }
             if(id == R.id.cart_button)
             {
                 Intent cart = new Intent(getApplicationContext(),Cart.class);
@@ -57,6 +71,7 @@ public class BaseActivity extends AppCompatActivity {
                 SharedPreferences LoginSharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
                 LoginSharedPref.edit().remove("Username").commit();
                 LoginSharedPref.edit().remove("Token").commit();
+                LoginSharedPref.edit().remove("role").commit();
                 Intent gotoslogin = new Intent(getApplicationContext(),Login.class);
                 startActivity(gotoslogin);
             }

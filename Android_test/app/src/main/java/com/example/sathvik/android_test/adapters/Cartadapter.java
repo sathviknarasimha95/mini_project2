@@ -31,15 +31,18 @@ public class Cartadapter extends ArrayAdapter<String> {
         private Context context;
         float total = 0;
         TextView totals;
+        SendToCart sp;
 
-    public Cartadapter(Context context,ArrayList cart_item_name,ArrayList cart_item_no,ArrayList cart_item_price,float total,TextView totals)
+    public Cartadapter(Context context,ArrayList cart_item_name,ArrayList cart_item_no,ArrayList cart_item_price)
     {
         super(context, R.layout.cart_list, cart_item_name);
         this.context = context;
         this.cart_item_name = cart_item_name;
         this.cart_item_no = cart_item_no;
         this.cart_item_price = cart_item_price;
-        this.total = total;
+        //this.total = total;
+        sp = SendToCart.getInstance();
+        this.total = sp.getTotal();
         this.totals = totals;
     }
 
@@ -56,9 +59,10 @@ public class Cartadapter extends ArrayAdapter<String> {
         TextView cart_price = (TextView)rowView.findViewById(R.id.cart_item_price);
         Button placeorder = (Button)rowView.findViewById(R.id.place_order);
         cart_name.setText(cart_item_name.get(position));
-        cart_price.setText(cart_item_no.get(position));
-        cart_no.setText("X "+cart_item_price.get(position));
-        totals.setText("Total="+total);
+        cart_price.setText(cart_item_price.get(position));
+        cart_no.setText("X "+cart_item_no.get(position));
+        //totals.setText("Total="+total);
+
 
         /*rowView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:id="@+id/getorder_image"
+        android:src="@raw/bitmap"
+        android:layout_centerVertical="true"
+        android:padding="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="20sp"
+        android:layout_alignTop="@+id/getorder_image"
+        android:layout_toRightOf="@+id/getorder_image"
+        android:layout_toEndOf="@+id/getorder_image"
+        android:id="@+id/dategetorder" />
+
+    <TextView
+        android:id="@+id/getDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dategetorder"
+        android:layout_alignBottom="@+id/dategetorder"
+        android:layout_toEndOf="@+id/dategetorder"
+        android:layout_toRightOf="@+id/dategetorder"
+        android:padding="5dp"
+        android:text="hii"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/orderCustomerid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_toEndOf="@+id/textView5"
+        android:layout_toRightOf="@+id/textView5"
+        android:text="hii"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dategetorder"
+        android:layout_toLeftOf="@+id/getDate"
+        android:layout_toStartOf="@+id/getDate"
+        android:text="Price:"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/orderprice"
+        android:text="OrderId:"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/orderprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dategetorder"
+        android:layout_toEndOf="@+id/dategetorder"
+        android:layout_toRightOf="@+id/dategetorder"
+        android:text="hii" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/getorder_image"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:text="Status:"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/orderstatusCustomer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/orderCustomerid"
+        android:layout_toEndOf="@+id/textView11"
+        android:layout_toRightOf="@+id/textView11"
+        android:text="status"
+        android:textStyle="bold"/>
+
+
+</RelativeLayout>
