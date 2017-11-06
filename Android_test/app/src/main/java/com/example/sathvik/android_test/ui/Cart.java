@@ -1,9 +1,11 @@
 package com.example.sathvik.android_test.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.MenuItem;
@@ -166,7 +168,26 @@ public class Cart extends BaseActivity {
             sendToCart = SendToCart.getInstance();
             float total = sendToCart.getTotal();
             //Toast.makeText(getApplicationContext(),total+"",Toast.LENGTH_SHORT).show();
-            SendRequest(OrderId,CustomerId,fDate,total);
+        AlertDialog.Builder placeorder = new AlertDialog.Builder(Cart.this);
+        placeorder.setTitle("Place ORder");
+        placeorder.setMessage("Are you Sure?");
+        placeorder.setCancelable(false);
+        String YesButtonText = "Yes";
+        String NoButtonText = "No";
+        placeorder.setPositiveButton(YesButtonText, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                SendRequest(OrderId,CustomerId,fDate,total);
+            }
+        });
+        placeorder.setNegativeButton(NoButtonText, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        placeorder.show();
+
 
     }
     public void SendRequest(String OrderId,int CustomerId,String Date,float total)

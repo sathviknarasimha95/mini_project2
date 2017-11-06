@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "807827331832",
+    "firebase_url": "https://sanjanaa-pharma.firebaseio.com",
+    "project_id": "sanjanaa-pharma",
+    "storage_bucket": "sanjanaa-pharma.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807827331832:android:bff65e364a1a82b6",
+        "android_client_info": {
+          "package_name": "com.example.sathvik.android_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807827331832-tb7a2k6ropppa3f9n4d7uolc85g50ebm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC62CP7XnFX8kTCP9fA9n5LZySlyHEkwMw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

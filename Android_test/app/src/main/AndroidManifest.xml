@@ -37,6 +37,18 @@
         <activity android:name=".ui.OrderList_Customer" />
         <activity android:name=".ui.OrderDetailCustomer" />
         <activity android:name=".ui.ViewOrderAdmin"></activity>
+        <service
+            android:name=".fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".fcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
