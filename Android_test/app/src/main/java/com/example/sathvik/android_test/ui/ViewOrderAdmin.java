@@ -1,12 +1,16 @@
 package com.example.sathvik.android_test.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.sathvik.android_test.R;
 import com.example.sathvik.android_test.adapters.GetOrderAdminAdapter;
+import com.example.sathvik.android_test.api.GetOrderAdmin;
 import com.example.sathvik.android_test.api.GetOrders;
 import com.example.sathvik.android_test.models.OrderCustomer;
 
@@ -30,14 +34,25 @@ public class ViewOrderAdmin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_order_admin);
+        Bundle bundle = getIntent().getExtras();
+        String status = bundle.getString("OrderStatus");
         voadmin = (ListView) findViewById(R.id.view_order_admin);
-
+        voadmin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent orderdetails = new Intent(getApplicationContext(),OrderDetailCustomer.class);
+                orderdetails.putExtra("OrderId", OrderId[i]);
+                orderdetails.putExtra("Status",status);
+                startActivity(orderdetails);
+            }
+        });
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getApplicationContext().getString(R.string.uri))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        GetOrders getOrdersAdmin = retrofit.create(GetOrders.class);
-        Call<List<OrderCustomer>> getorderadmin = getOrdersAdmin.getData();
+        //GetOrders getOrdersAdmin = retrofit.create(GetOrders.class);
+        GetOrderAdmin getOrdersAdmin = retrofit.create(GetOrderAdmin.class);
+        Call<List<OrderCustomer>> getorderadmin = getOrdersAdmin.getOrderAdmin(status);
         getorderadmin.enqueue(new Callback<List<OrderCustomer>>() {
             @Override
             public void onResponse(Call<List<OrderCustomer>> call, Response<List<OrderCustomer>> response) {

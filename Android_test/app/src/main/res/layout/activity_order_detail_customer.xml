@@ -30,4 +30,42 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/get_order_detail_customer"/>
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/total_det"
+        android:layout_marginTop="20dp"
+        android:id="@+id/admin_buttons">
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="22dp"
+
+            android:text="Accept Order"
+            android:textAllCaps="false"
+            android:theme="@style/AppTheme.Button"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:id="@+id/accept_order"
+            />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+
+            android:text="Cancel Order"
+            android:theme="@style/AppTheme.Button"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:id="@+id/cancel_order"
+            android:layout_below="@+id/accept_order"
+            />
+
+
+    </RelativeLayout>
+
 </RelativeLayout>

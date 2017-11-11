@@ -32,22 +32,27 @@ public class Order extends BaseActivity{
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_order2);
         lv = (ListView) findViewById(R.id.idlistview);
         sv = (SearchView) findViewById(R.id.idsearch);
         Context context;
         //adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
-        lv.setAdapter(adapter);
+        //lv.setAdapter(adapter);
+        Bundle bundle = getIntent().getExtras();
+        String ptype = bundle.getString("ProductType");
+        //Toast.makeText(getApplicationContext(),ptype,Toast.LENGTH_LONG).show();
         //sv.setOnQueryTextListener(this);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getApplicationContext().getString(R.string.uri))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Inventory_list inventory_list = retrofit.create(Inventory_list.class);
-        Call<List<Inventory>> call = inventory_list.getData();
+        Call<List<Inventory>> call = inventory_list.get_TypeData(ptype);
         progressbar();
 
         call.enqueue(new Callback<List<Inventory>>() {
@@ -81,6 +86,9 @@ public class Order extends BaseActivity{
 
                 final Orderadapter adapter = new Orderadapter(getApplicationContext(),prod_name,prod_type,prod_company,prod_price,prod_id);
                 lv.setAdapter(adapter);
+
+
+
                 sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String arg0) {

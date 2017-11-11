@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sathvik.android_test.R;
@@ -41,10 +42,32 @@ public class GetOrderAdminAdapter extends ArrayAdapter<String> {
         TextView dates = (TextView)rowView.findViewById(R.id.admin_order_date);
         TextView orderid = (TextView)rowView.findViewById(R.id.admin_order_id);
         TextView price = (TextView)rowView.findViewById(R.id.admin_order_price);
+        TextView status = (TextView)rowView.findViewById(R.id.admin_order_status);
+        ImageView img = (ImageView)rowView.findViewById(R.id.admin_layout_image);
 
         cuname.setText(Customername[position]);
-        dates.setText(date[position]);
-        orderid.setText(Orderid[position]);
+        String dated = date[position].substring(0,10);
+        dates.setText(dated);
+        orderid.setText(":"+Orderid[position]);
+        price.setText(Orderprice[position]+"");
+        status.setText(Orderstatus[position]);
+        if(Orderstatus[position].equals("Pending"))
+        {
+            img.setImageResource(R.drawable.pending);
+        }
+        else if(Orderstatus[position].equals("Ongoing"))
+        {
+            img.setImageResource(R.drawable.ongoing);
+        }
+        else if(Orderstatus[position].equals("Completed"))
+        {
+            img.setImageResource(R.drawable.completed);
+        }
+        else if(Orderstatus[position].equals("Cancelled"))
+        {
+            img.setImageResource(R.drawable.cancelled);
+        }
+
         return rowView;
     }
 }

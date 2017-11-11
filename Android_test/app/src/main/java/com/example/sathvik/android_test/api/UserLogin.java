@@ -1,6 +1,7 @@
 package com.example.sathvik.android_test.api;
 
 import com.example.sathvik.android_test.models.LoginInfo;
+import com.example.sathvik.android_test.models.TokenInfo;
 
 import java.util.List;
 
@@ -22,5 +23,11 @@ public interface UserLogin {
     Call<LoginInfo> sendLogin(
             @Field("email") String email,
             @Field("password") String password
+    );
+    @FormUrlEncoded
+    @POST("/updatetoken")
+    Call<TokenInfo> updateToken(
+            @Field("token") String token,
+            @Field("CustomerId") String CustomerId
     );
 }

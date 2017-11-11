@@ -73,9 +73,34 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
     }
     public void intentRedirect(String name)
     {
-        if(name.equals("Ongoing Orders"))
+        if(name.equals("Order History"))
         {
             Intent gotorder = new Intent(context,ViewOrderAdmin.class);
+            gotorder.putExtra("OrderStatus", "All");
+            context.startActivity(gotorder);
+        }
+        else if(name.equals(("Pending Orders")))
+        {
+            Intent gotorder = new Intent(context,ViewOrderAdmin.class);
+            gotorder.putExtra("OrderStatus", "Pending");
+            context.startActivity(gotorder);
+        }
+        else if(name.equals(("Ongoing Orders")))
+        {
+            Intent gotorder = new Intent(context,ViewOrderAdmin.class);
+            gotorder.putExtra("OrderStatus", "Ongoing");
+            context.startActivity(gotorder);
+        }
+        else if(name.equals(("Completed Orders")))
+        {
+            Intent gotorder = new Intent(context,ViewOrderAdmin.class);
+            gotorder.putExtra("OrderStatus", "Completed");
+            context.startActivity(gotorder);
+        }
+        else if(name.equals(("Cancelled Orders")))
+        {
+            Intent gotorder = new Intent(context,ViewOrderAdmin.class);
+            gotorder.putExtra("OrderStatus", "Cancelled");
             context.startActivity(gotorder);
         }
         else

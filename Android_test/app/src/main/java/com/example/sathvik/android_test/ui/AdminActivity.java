@@ -1,7 +1,9 @@
 package com.example.sathvik.android_test.ui;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,10 +27,14 @@ import com.example.sathvik.android_test.adapters.Admin_Adapter;
 import com.example.sathvik.android_test.adapters.ProdMenuAdapter;
 import com.example.sathvik.android_test.models.AdminMenu;
 import com.example.sathvik.android_test.models.ProdMenu;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +55,9 @@ public class AdminActivity extends BaseActivity {
         /*Admin_list = (ListView) findViewById(R.id.Admin_main);
         Admin_Adapter adapter = new Admin_Adapter(getApplicationContext(),titles);
         Admin_list.setAdapter(adapter);*/
+
         create_recyclerview();
+
     }
 
     public void create_recyclerview()
@@ -75,26 +83,30 @@ public class AdminActivity extends BaseActivity {
     }
     private void prepareMenu() {
         int[] covers = new int[]{
-                R.raw.ongoing,
+                R.raw.ongoing1,
                 R.raw.completed,
                 R.raw.pending,
                 R.raw.payments,
                 R.raw.history,
+                R.raw.cancled,
         };
 
-        AdminMenu a = new AdminMenu("Ongoing Orders",covers[0]);
+        AdminMenu a = new AdminMenu("Pending Orders",covers[2]);
         menuList.add(a);
 
-        a = new AdminMenu("Completed Orders",covers[1]);
+        a = new AdminMenu("Ongoing Orders",covers[0]);
         menuList.add(a);
 
-        a = new AdminMenu("pending Order", covers[2]);
+        a = new AdminMenu("Completed Orders", covers[1]);
         menuList.add(a);
 
         a = new AdminMenu("Payments",covers[3]);
         menuList.add(a);
 
         a = new AdminMenu("Order History",covers[4]);
+        menuList.add(a);
+
+        a = new AdminMenu("Cancelled Orders",covers[5]);
         menuList.add(a);
 
         adapter.notifyDataSetChanged();

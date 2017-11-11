@@ -66,6 +66,23 @@ public class Orderadapter extends ArrayAdapter<String> {
         order_type.setText(item_type[position]);
         order_company.setText(prod_company[position]);
         order_price.setText(item_price[position]+" Rs");
+        if(item_type[position].equals("Tab"))
+        {
+            imageView.setImageResource(R.drawable.tab);
+
+        }
+        else if(item_type[position].equals("Inj"))
+        {
+            imageView.setImageResource(R.drawable.inj);
+        }
+        else if(item_type[position].equals("Syp"))
+        {
+            imageView.setImageResource(R.drawable.syp);
+        }
+        else if(item_type[position].equals("Equ"))
+        {
+            imageView.setImageResource(R.drawable.equ);
+        }
         addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

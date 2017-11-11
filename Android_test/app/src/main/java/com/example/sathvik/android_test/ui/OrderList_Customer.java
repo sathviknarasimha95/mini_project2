@@ -39,6 +39,8 @@ public class OrderList_Customer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list__customer);
+        Bundle bundle = getIntent().getExtras();
+        String status = bundle.getString("OrderStatus");
 
         golv = (ListView)findViewById(R.id.get_order_customer);
         Context context;
@@ -59,7 +61,7 @@ public class OrderList_Customer extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         GetOrders getOrders = retrofit.create(GetOrders.class);
-        Call<List<OrderCustomer>> getordercustomer = getOrders.getOrder(CustomerId);
+        Call<List<OrderCustomer>> getordercustomer = getOrders.getOrder(CustomerId,status);
 
         getordercustomer.enqueue(new Callback<List<OrderCustomer>>() {
             @Override

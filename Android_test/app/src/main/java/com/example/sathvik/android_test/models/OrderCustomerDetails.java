@@ -23,7 +23,18 @@ public class OrderCustomerDetails {
     @SerializedName("ProductNo")
     @Expose
     private int ProductNo;
+    @SerializedName("OrderId")
+    @Expose
+    private String OrderId;
 
+
+    public String getOrderId() {
+        return OrderId;
+    }
+
+    public void setOrderId(String orderId) {
+        OrderId = orderId;
+    }
     @Override
     public String toString() {
         return "{" +
@@ -32,8 +43,10 @@ public class OrderCustomerDetails {
                 ", UnitPrice='" + UnitPrice + '\'' +
                 ", OrderPrice='" + OrderPrice + '\'' +
                 ", ProductNo=" + ProductNo +
+                ", OrderId='" + OrderId + '\'' +
                 '}';
     }
+
 
     public String getProductId() {
         return ProductId;

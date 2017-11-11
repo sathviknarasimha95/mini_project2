@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.ConnectivityManager;
@@ -32,13 +33,20 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.sathvik.android_test.R;
 import com.example.sathvik.android_test.adapters.ProdMenuAdapter;
+import com.example.sathvik.android_test.api.UserLogin;
 import com.example.sathvik.android_test.models.ProdMenu;
+import com.example.sathvik.android_test.models.TokenInfo;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import android.support.v7.widget.GridLayoutManager;
@@ -50,6 +58,12 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends BaseActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     String FileName = "Login_fine";
     private SliderLayout Imgslider;
@@ -59,6 +73,7 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
     private Drawer result;
     private CoordinatorLayout coordinatorLayout;
     private ActionBarDrawerToggle toggle;
+
 
 
     @Override
@@ -73,30 +88,71 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
         imgslider();
         //check_network();
         create_recyclerview();
+        String firebasetoken = FirebaseInstanceId.getInstance().getToken();
+        String CustomerId = get_sharedpref("CustomerId");
+        //Toast.makeText(getApplicationContext(), FirebaseInstanceId.getInstance().getToken(),Toast.LENGTH_SHORT).show();
+        update_token(firebasetoken,CustomerId);
+
+
+        Toast.makeText(getApplicationContext(),CustomerId,Toast.LENGTH_SHORT).show();
     }
     // navigation Drawer
     public void navbar(Toolbar toolbar,Bundle savedInstanceState)
     {
+
+        String username = get_sharedpref("Username");
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.header)
+                .addProfiles(
+                        new ProfileDrawerItem().withName(username).withEmail("sathviknarasimha@gmail.com").withIcon(getResources().getDrawable(R.drawable.avatar))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
+
         result = new DrawerBuilder()
                 .withActivity(this)
-                .withHeader(R.layout.header)
+                .withAccountHeader(headerResult)
+                //.withHeader(R.layout.header)
                 .withToolbar(toolbar)
                 .withSavedInstance(savedInstanceState)
-                .addDrawerItems(new PrimaryDrawerItem().withName("Profile"),new PrimaryDrawerItem().withName("Orders History"),new PrimaryDrawerItem().withName("Logout"))
+                .addDrawerItems(new PrimaryDrawerItem().withName("Profile"),new PrimaryDrawerItem().withName("Orders History"),new PrimaryDrawerItem().withName("Pending Orders"),new PrimaryDrawerItem().withName("Completed Orders"),new PrimaryDrawerItem().withName("Ongoing Orders"),new PrimaryDrawerItem().withName("Logout"))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
 
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
-                                long id = drawerItem.getIdentifier();
-                                int ch = (int)id%10;
-                                Toast.makeText(getApplicationContext(),ch+"",Toast.LENGTH_SHORT).show();
-                                if(ch==-5 || ch==-1 || ch==-7) {
+
+                                if(position == 6) {
                                     logout();
                                 }
-                                else if(ch==-6 || ch==-2 || ch==-8)
+                                else if(position == 2)
                                 {
                                     Intent getordercust = new Intent(getApplicationContext(),OrderList_Customer.class);
+                                    getordercust.putExtra("OrderStatus","All");
+                                    startActivity(getordercust);
+                                }
+                                else if(position == 3)
+                                {
+                                    Intent getordercust = new Intent(getApplicationContext(),OrderList_Customer.class);
+                                    getordercust.putExtra("OrderStatus","Pending");
+                                    startActivity(getordercust);
+                                }
+                                else if(position == 4)
+                                {
+                                    Intent getordercust = new Intent(getApplicationContext(),OrderList_Customer.class);
+                                    getordercust.putExtra("OrderStatus","Completed");
+                                    startActivity(getordercust);
+                                }
+                                else if(position == 5)
+                                {
+                                    Intent getordercust = new Intent(getApplicationContext(),OrderList_Customer.class);
+                                    getordercust.putExtra("OrderStatus","Ongoing");
                                     startActivity(getordercust);
                                 }
                         return false;
@@ -187,11 +243,11 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
     }
     private void prepareMenu() {
         int[] covers = new int[]{
-                R.raw.all,
-                R.raw.tab,
-                R.raw.syruo,
-                R.raw.inj,
-                R.raw.scope,
+                R.raw.all2,
+                R.raw.tablet,
+                R.raw.syrup,
+                R.raw.injuction,
+                R.raw.stethoscope,
                 };
 
         ProdMenu a = new ProdMenu("All",covers[0]);
@@ -308,7 +364,34 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
 
         snackbar.show();
     }
+    public void update_token(String token,String CustomerId)
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getApplicationContext().getString(R.string.uri))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UserLogin updatetoken = retrofit.create(UserLogin.class);
+        Call<TokenInfo> call = updatetoken.updateToken(token,CustomerId);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                //Toast.makeText(getApplicationContext(),"Update token success",Toast.LENGTH_SHORT).show();
+                Log.i("fires token=","Updated successfully");
+            }
 
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                //Toast.makeText(getApplicationContext(),"Update token failure",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public String get_sharedpref(String data)
+    {
+        SharedPreferences SharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
+        String defaultValue = "DefaultName";
+        return SharedPref.getString(data,defaultValue);
+
+    }
     @Override
     protected void onDestroy() {
         Imgslider.destroyDrawingCache();

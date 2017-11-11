@@ -20,7 +20,8 @@ public interface GetOrders {
     @FormUrlEncoded
     @POST("/getorders")
     Call<List<OrderCustomer>> getOrder(
-            @Field("CustomerId") int CustomerId
+            @Field("CustomerId") int CustomerId,
+            @Field("OrderStatus") String OrderStatus
 
     );
 

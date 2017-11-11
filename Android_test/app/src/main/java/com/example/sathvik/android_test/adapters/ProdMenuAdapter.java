@@ -77,12 +77,35 @@ public class ProdMenuAdapter extends RecyclerView.Adapter<ProdMenuAdapter.MyView
         if(name.equals("All"))
         {
            Intent gotorder = new Intent(context,Order.class);
+            gotorder.putExtra("ProductType", "All");
+           context.startActivity(gotorder);
+        }
+        else if(name.equals("Tablets"))
+        {
+            //Toast.makeText(context,"You Clicked "+name,Toast.LENGTH_LONG).show();
+            Intent gotorder = new Intent(context,Order.class);
+            gotorder.putExtra("ProductType", "Tab");
             context.startActivity(gotorder);
         }
-        else
+        else if(name.equals("Syrups"))
         {
-            Toast.makeText(context,"You Clicked "+name,Toast.LENGTH_LONG).show();
+            Intent gotorder = new Intent(context,Order.class);
+            gotorder.putExtra("ProductType", "Syp");
+            context.startActivity(gotorder);
         }
+        else if(name.equals("Injuction"))
+        {
+            Intent gotorder = new Intent(context,Order.class);
+            gotorder.putExtra("ProductType", "Inj");
+            context.startActivity(gotorder);
+        }
+        else if(name.equals("Equipments"))
+        {
+            Intent gotorder = new Intent(context,Order.class);
+            gotorder.putExtra("ProductType", "Equ");
+            context.startActivity(gotorder);
+        }
+
     }
 
     @Override

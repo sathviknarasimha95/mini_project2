@@ -19,6 +19,9 @@ public interface Inventory_list {
     @Headers("Content-Type: application/json")
     @GET("inventory")
     Call<List<Inventory>> getData();
+    @FormUrlEncoded
+    @POST("/inventory")
+    Call<List<Inventory>> get_TypeData(@Field("ProductType") String ptype);
 
 
 }
