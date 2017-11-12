@@ -121,14 +121,14 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
                 //.withHeader(R.layout.header)
                 .withToolbar(toolbar)
                 .withSavedInstance(savedInstanceState)
-                .addDrawerItems(new PrimaryDrawerItem().withName("Profile"),new PrimaryDrawerItem().withName("Orders History"),new PrimaryDrawerItem().withName("Pending Orders"),new PrimaryDrawerItem().withName("Completed Orders"),new PrimaryDrawerItem().withName("Ongoing Orders"),new PrimaryDrawerItem().withName("Logout"))
+                .addDrawerItems(new PrimaryDrawerItem().withName("Profile"),new PrimaryDrawerItem().withName("Orders History"),new PrimaryDrawerItem().withName("Pending Orders"),new PrimaryDrawerItem().withName("Completed Orders"),new PrimaryDrawerItem().withName("Ongoing Orders"),new PrimaryDrawerItem().withName("Paid"),new PrimaryDrawerItem().withName("Unpaid"),new PrimaryDrawerItem().withName("Payment History"),new PrimaryDrawerItem().withName("Logout"))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
 
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
 
-                                if(position == 6) {
+                                if(position == 9) {
                                     logout();
                                 }
                                 else if(position == 2)
@@ -154,6 +154,18 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
                                     Intent getordercust = new Intent(getApplicationContext(),OrderList_Customer.class);
                                     getordercust.putExtra("OrderStatus","Ongoing");
                                     startActivity(getordercust);
+                                }
+                                else if(position == 6)
+                                {
+                                    Intent gotopaid = new Intent(getApplicationContext(),Payment_list.class);
+                                    gotopaid.putExtra("status","Paid");
+                                    startActivity(gotopaid);
+                                }
+                                else if(position == 7)
+                                {
+                                    Intent gotopaid = new Intent(getApplicationContext(),Payment_list.class);
+                                    gotopaid.putExtra("status","Unpaid");
+                                    startActivity(gotopaid);
                                 }
                         return false;
                     }

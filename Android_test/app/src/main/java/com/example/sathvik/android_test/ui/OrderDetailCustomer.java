@@ -15,13 +15,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.sathvik.android_test.R;
 import com.example.sathvik.android_test.adapters.GetOrderDetcAdapter;
 import com.example.sathvik.android_test.api.GetOrderAdmin;
 import com.example.sathvik.android_test.api.GetOrderDetails;
 import com.example.sathvik.android_test.models.OrderCustomerDetails;
 import com.example.sathvik.android_test.models.OrderStatus;
+import com.example.sathvik.android_test.models.Otpgen;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,6 +45,9 @@ public class OrderDetailCustomer extends AppCompatActivity {
     String OrderId;
     String FileName = "Login_fine";
     String Status;
+    String otp;
+    String otp_generated;
+    String PaymentStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +67,7 @@ public class OrderDetailCustomer extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         OrderId = bundle.getString("OrderId");
         Status = bundle.getString("Status");
-
+        PaymentStatus = bundle.getString("PaymentStatus");
         //TextView tv = (TextView)findViewById(R.id.OrderIddet);
         //tv.setText(OrderId);
         godc = (ListView) findViewById(R.id.get_order_detail_customer);
@@ -120,7 +127,28 @@ public class OrderDetailCustomer extends AppCompatActivity {
                     if (status.getText().equals("Accept Order")) {
                         accept_order();
                     } else if (status.getText().equals("Complete Order")) {
-                        complete_order();
+                            otp_gen();
+                            MaterialDialog builder = new MaterialDialog.Builder(OrderDetailCustomer.this)
+                                .title("Enter OTP")
+                                .inputRangeRes(4, 4,R.color.colorPrimary)
+                                .input(null, null, new MaterialDialog.InputCallback() {
+                                    @Override
+                                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                                        // Do something
+                                        otp = input.toString();
+                                        if(otp.equals(otp_generated))
+                                        {
+                                            Toast.makeText(getApplicationContext(),"Valid OTP",Toast.LENGTH_SHORT).show();
+                                            complete_order();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(getApplicationContext(),"Invalid OTP",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }).negativeText("Cancel").show();
+                        //Toast.makeText(getApplicationContext(),otp,Toast.LENGTH_SHORT).show();
+                        //
                     }
 
                 }
@@ -132,6 +160,33 @@ public class OrderDetailCustomer extends AppCompatActivity {
                 }
             });
         }
+    }
+    public void otp_gen()
+    {
+        MaterialDialog builder = new MaterialDialog.Builder(this)
+                .title("Otp Is Generating")
+                .content("Please Wait")
+                .progress(true, 0)
+                .show();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getApplicationContext().getString(R.string.uri))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetOrderAdmin getOrderAdmin = retrofit.create(GetOrderAdmin.class);
+        Call<Otpgen> otpgenCall = getOrderAdmin.otpgen(OrderId);
+        otpgenCall.enqueue(new Callback<Otpgen>() {
+            @Override
+            public void onResponse(Call<Otpgen> call, Response<Otpgen> response) {
+                otp_generated = response.body().getOtp();
+                Toast.makeText(getApplicationContext(),"Otp Generated Success",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Otpgen> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"Otp Generated Failure",Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.dismiss();
     }
     public void accept_order()
     {
@@ -146,7 +201,7 @@ public class OrderDetailCustomer extends AppCompatActivity {
         updateorder.setPositiveButton(YesButtonText, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                update_order(status);
+                update_order(status,PaymentStatus);
             }
         });
         updateorder.setNegativeButton(NoButtonText, new DialogInterface.OnClickListener() {
@@ -170,7 +225,7 @@ public class OrderDetailCustomer extends AppCompatActivity {
         updateorder.setPositiveButton(YesButtonText, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                update_order(status);
+                update_order(status,PaymentStatus);
             }
         });
         updateorder.setNegativeButton(NoButtonText, new DialogInterface.OnClickListener() {
@@ -181,14 +236,18 @@ public class OrderDetailCustomer extends AppCompatActivity {
         });
         updateorder.show();
     }
-    public void update_order(String status)
+    public void update_order
+            (String status,String PaymentStatus)
     {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getApplicationContext().getString(R.string.uri))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        Date cDate = new Date();
+        String fDate = new SimpleDateFormat("yyyy/MM/dd").format(cDate);
+        Toast.makeText(getApplicationContext(),fDate,Toast.LENGTH_SHORT).show();
         GetOrderAdmin getOrderAdmin = retrofit.create(GetOrderAdmin.class);
-        Call<OrderStatus>  updateOrderAdmin = getOrderAdmin.updateOrderAdmin(OrderId,status);
+        Call<OrderStatus>  updateOrderAdmin = getOrderAdmin.updateOrderAdmin(OrderId,status,PaymentStatus,fDate);
         updateOrderAdmin.enqueue(new Callback<OrderStatus>() {
             @Override
             public void onResponse(Call<OrderStatus> call, Response<OrderStatus> response) {
@@ -215,7 +274,7 @@ public class OrderDetailCustomer extends AppCompatActivity {
         updateorder.setPositiveButton(YesButtonText, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                update_order(status);
+                update_order(status,PaymentStatus);
             }
         });
         updateorder.setNegativeButton(NoButtonText, new DialogInterface.OnClickListener() {

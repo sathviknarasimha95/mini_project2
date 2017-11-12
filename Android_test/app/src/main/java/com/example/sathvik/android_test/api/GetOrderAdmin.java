@@ -2,6 +2,7 @@ package com.example.sathvik.android_test.api;
 
 import com.example.sathvik.android_test.models.OrderCustomer;
 import com.example.sathvik.android_test.models.OrderStatus;
+import com.example.sathvik.android_test.models.Otpgen;
 
 import java.util.List;
 
@@ -25,6 +26,14 @@ public interface GetOrderAdmin {
     @POST("/updateorderstatus")
     Call<OrderStatus> updateOrderAdmin(
             @Field("OrderId") String OrderId,
-            @Field("OrderStatus") String OrderStatus
+            @Field("OrderStatus") String OrderStatus,
+            @Field("PaymentStatus") String PaymentStatus,
+            @Field("Date") String Date
+    );
+
+    @FormUrlEncoded
+    @POST("/otpgen")
+    Call<Otpgen> otpgen(
+            @Field("OrderId") String OrderId
     );
 }

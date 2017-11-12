@@ -20,9 +20,10 @@ public class GetOrderAdminAdapter extends ArrayAdapter<String> {
     private String[] date;
     private float[] Orderprice;
     private String[] Orderstatus;
+    private String[] PaymentStatus;
     Context context;
 
-    public GetOrderAdminAdapter(Context context,String[] CustomerName,String[] OrderId,String[] Date,float[] OrderPrice,String[] OrderStatus)
+    public GetOrderAdminAdapter(Context context,String[] CustomerName,String[] OrderId,String[] Date,float[] OrderPrice,String[] OrderStatus,String[] PaymentStatus)
     {
         super(context, R.layout.adminlist,CustomerName);
         this.context = context;
@@ -31,6 +32,7 @@ public class GetOrderAdminAdapter extends ArrayAdapter<String> {
         this.date = Date;
         this.Orderprice = OrderPrice;
         this.Orderstatus = OrderStatus;
+        this.PaymentStatus = PaymentStatus;
     }
 
     @Override
@@ -44,6 +46,7 @@ public class GetOrderAdminAdapter extends ArrayAdapter<String> {
         TextView price = (TextView)rowView.findViewById(R.id.admin_order_price);
         TextView status = (TextView)rowView.findViewById(R.id.admin_order_status);
         ImageView img = (ImageView)rowView.findViewById(R.id.admin_layout_image);
+        TextView pay = (TextView)rowView.findViewById(R.id.payment);
 
         cuname.setText(Customername[position]);
         String dated = date[position].substring(0,10);
@@ -51,6 +54,7 @@ public class GetOrderAdminAdapter extends ArrayAdapter<String> {
         orderid.setText(":"+Orderid[position]);
         price.setText(Orderprice[position]+"");
         status.setText(Orderstatus[position]);
+        pay.setText(PaymentStatus[position]);
         if(Orderstatus[position].equals("Pending"))
         {
             img.setImageResource(R.drawable.pending);

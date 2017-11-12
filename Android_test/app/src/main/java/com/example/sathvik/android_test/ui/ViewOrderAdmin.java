@@ -29,6 +29,7 @@ public class ViewOrderAdmin extends AppCompatActivity {
     String[] date;
     float[] OrderPrice;
     String[] OrderStatus;
+    String[] PaymentStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class ViewOrderAdmin extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent orderdetails = new Intent(getApplicationContext(),OrderDetailCustomer.class);
                 orderdetails.putExtra("OrderId", OrderId[i]);
+                orderdetails.putExtra("PaymentStatus",PaymentStatus[i]);
                 orderdetails.putExtra("Status",status);
                 startActivity(orderdetails);
             }
@@ -62,6 +64,7 @@ public class ViewOrderAdmin extends AppCompatActivity {
                 date = new String[response.body().size()];
                 OrderPrice = new float[response.body().size()];
                 OrderStatus = new String[response.body().size()];
+                PaymentStatus = new String[response.body().size()];
                 int i=0;
                 for (OrderCustomer getorderadmin : response.body()) {
                     //Log.i("Order", getorder.getCustomerId()+"");
@@ -70,10 +73,11 @@ public class ViewOrderAdmin extends AppCompatActivity {
                     date[i] = getorderadmin.getDate();
                     OrderPrice[i] = getorderadmin.getOrderPrice();
                     OrderStatus[i] = getorderadmin.getOrderStatus();
+                    PaymentStatus[i] = getorderadmin.getPaymentStatus();
                     i++;
-                    GetOrderAdminAdapter goaa = new GetOrderAdminAdapter(getApplicationContext(),CustomerName,OrderId,date,OrderPrice,OrderStatus);
-                    voadmin.setAdapter(goaa);
                 }
+                    GetOrderAdminAdapter goaa = new GetOrderAdminAdapter(getApplicationContext(),CustomerName,OrderId,date,OrderPrice,OrderStatus,PaymentStatus);
+                    voadmin.setAdapter(goaa);
                 //Toast.makeText(getApplicationContext(),"Yeah",Toast.LENGTH_SHORT).show();
             }
 

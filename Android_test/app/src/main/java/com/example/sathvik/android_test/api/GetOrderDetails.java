@@ -1,7 +1,7 @@
 package com.example.sathvik.android_test.api;
 
-import com.example.sathvik.android_test.models.OrderCustomer;
 import com.example.sathvik.android_test.models.OrderCustomerDetails;
+import com.example.sathvik.android_test.models.Otpgen;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ public interface GetOrderDetails {
             @Field("OrderId") String OrderId
 
     );
+
 
 
 }

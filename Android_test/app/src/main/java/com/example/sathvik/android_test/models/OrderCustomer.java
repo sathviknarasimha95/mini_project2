@@ -31,6 +31,9 @@ public class OrderCustomer {
     @SerializedName("CustomerName")
     @Expose
     private String CustomerName;
+    @SerializedName("PaymentStatus")
+    @Expose
+    private String PaymentStatus;
 
     public String getCustomerName() {
         return CustomerName;
@@ -87,6 +90,14 @@ public class OrderCustomer {
         OrderPrice = orderPrice;
     }
 
+    public String getPaymentStatus() {
+        return PaymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        PaymentStatus = paymentStatus;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -96,7 +107,8 @@ public class OrderCustomer {
                 ", Date='" + Date + '\'' +
                 ", OrderPrice=" + OrderPrice +
                 ", OrderStatus='" + OrderStatus + '\'' +
+                ", CustomerName='" + CustomerName + '\'' +
+                ", PaymentStatus='" + PaymentStatus + '\'' +
                 '}';
     }
-
 }
