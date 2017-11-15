@@ -66,7 +66,7 @@ public class Payment_list extends AppCompatActivity {
                     PaymentStatus[i] = pay.getPaymentStatus();
                     i++;
                 }
-                PaymentInfo_Adapter pia = new PaymentInfo_Adapter(getApplicationContext(),OrderId,OrderPrice,OrderStatus,Date,PaymentStatus);
+                PaymentInfo_Adapter pia = new PaymentInfo_Adapter(Payment_list.this,OrderId,OrderPrice,OrderStatus,Date,PaymentStatus);
                 plp.setAdapter(pia);
             }
 

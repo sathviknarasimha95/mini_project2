@@ -29,7 +29,7 @@
             android:id="@+id/cname" />
 
         <TextView
-            android:id="@+id/customer_name"
+            android:id="@+id/paymenthistory_getDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/cname"
@@ -42,7 +42,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/Customerid_pen"
+            android:id="@+id/paymenthistory_orderid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textView5"
@@ -60,8 +60,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cname"
-            android:layout_toLeftOf="@+id/customer_name"
-            android:layout_toStartOf="@+id/customer_name"
+            android:layout_toLeftOf="@+id/paymenthistory_getDate"
+            android:layout_toStartOf="@+id/paymenthistory_getDate"
             android:text="Price:"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -72,13 +72,13 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView4"
             android:layout_alignStart="@+id/textView4"
-            android:layout_below="@+id/customer_phno"
+            android:layout_below="@+id/paymenthistory_orderprice"
             android:text="OrderId:"
             android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/customer_phno"
+            android:id="@+id/paymenthistory_orderprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cname"
@@ -95,28 +95,16 @@
             android:text="Status:"
             android:textStyle="bold"/>
         <TextView
-            android:id="@+id/payment_orderstatusCustomer"
+            android:id="@+id/paymenthistory_orderstatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Customerid_pen"
+            android:layout_below="@+id/paymenthistory_orderid"
             android:layout_toEndOf="@+id/textView11"
             android:layout_toRightOf="@+id/textView11"
             android:text="status"
             android:textStyle="bold"/>
 
-        <com.github.rubensousa.raiflatbutton.RaiflatButton
-            android:id="@+id/pay"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
-            android:layout_alignBaseline="@+id/textView4"
-            android:layout_alignBottom="@+id/textView4"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="Pay"
-            android:textSize="15sp"
-            android:textStyle="bold" />
 
 
 

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.sathvik.android_test.R;
 import com.example.sathvik.android_test.models.AdminMenu;
 import com.example.sathvik.android_test.ui.Order;
+import com.example.sathvik.android_test.ui.Payment_history;
 import com.example.sathvik.android_test.ui.ViewOrderAdmin;
 
 import java.util.List;
@@ -103,10 +104,13 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
             gotorder.putExtra("OrderStatus", "Cancelled");
             context.startActivity(gotorder);
         }
-        else
+        else if(name.equals("Payments"))
         {
-            Toast.makeText(context,"You Clicked "+name,Toast.LENGTH_LONG).show();
+            Intent gotopaymenthistory = new Intent(context,Payment_history.class);
+            gotopaymenthistory.putExtra("Type","all");
+            context.startActivity(gotopaymenthistory);
         }
+
     }
 
     @Override

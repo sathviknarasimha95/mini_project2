@@ -53,6 +53,11 @@ public class BaseActivity extends AppCompatActivity {
                 Intent cart = new Intent(getApplicationContext(),Cart.class);
                 startActivity(cart);
             }
+            if(id == R.id.admin_new_users)
+            {
+                Intent pending = new Intent(getApplicationContext(),pendingcustomer.class);
+                startActivity(pending);
+            }
         //noinspection SimplifiableIfStatement
         return super.onOptionsItemSelected(item);
     }

@@ -163,9 +163,15 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
                                 }
                                 else if(position == 7)
                                 {
-                                    Intent gotopaid = new Intent(getApplicationContext(),Payment_list.class);
-                                    gotopaid.putExtra("status","Unpaid");
-                                    startActivity(gotopaid);
+                                    Intent gotounpaid = new Intent(getApplicationContext(),Payment_list.class);
+                                    gotounpaid.putExtra("status","Unpaid");
+                                    startActivity(gotounpaid);
+                                }
+                                else if(position == 8)
+                                {
+                                    Intent gotopaymenthistory = new Intent(getApplicationContext(),Payment_history.class);
+                                    gotopaymenthistory.putExtra("Type","customer");
+                                    startActivity(gotopaymenthistory);
                                 }
                         return false;
                     }

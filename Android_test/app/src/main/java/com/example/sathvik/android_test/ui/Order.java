@@ -15,7 +15,13 @@ import com.example.sathvik.android_test.R;
 import com.example.sathvik.android_test.adapters.Orderadapter;
 import com.example.sathvik.android_test.api.Inventory_list;
 import com.example.sathvik.android_test.models.Inventory;
+import com.example.sathvik.android_test.models.Orderadp;
+import com.example.sathvik.android_test.models.Payment_historyadp;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,7 +34,7 @@ public class Order extends BaseActivity{
     ListView lv;
     SearchView sv;
     ArrayAdapter<String> adapter;
-
+    ArrayList<Orderadp> arraylist = new ArrayList<Orderadp>();
 
 
 
@@ -84,7 +90,12 @@ public class Order extends BaseActivity{
                 List<Inventory> names = response.body();
                 //final ArrayAdapter adapter = new ArrayAdapter(Order.this,R.layout.listorder,R.id.list_order,datas);
 
-                final Orderadapter adapter = new Orderadapter(getApplicationContext(),prod_name,prod_type,prod_company,prod_price,prod_id);
+                for(int k=0;k<response.body().size();k++)
+                {
+                    Orderadp od = new Orderadp(prod_name[k],prod_id[k],prod_type[k],prod_company[k],prod_price[k]);
+                    arraylist.add(od);
+                }
+                final Orderadapter adapter = new Orderadapter(getApplicationContext(),prod_name,prod_type,prod_company,prod_price,prod_id,arraylist);
                 lv.setAdapter(adapter);
 
 
@@ -98,8 +109,9 @@ public class Order extends BaseActivity{
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        String text = newText;
-                        adapter.getFilter().filter(newText);
+                        String text = newText.toString().toLowerCase(Locale.getDefault());
+                        //adapter.filter(text);
+                        adapter.filter(text);
                         return false;
                     }
                 });

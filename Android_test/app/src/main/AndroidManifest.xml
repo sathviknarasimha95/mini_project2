@@ -49,7 +49,15 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.Payment_list"></activity>
+        <activity android:name=".ui.Payment_list" />
+        <activity android:name=".ui.Payment_history" />
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_7BWzOJeq2kX2pU" />
+
+        <activity android:name=".ui.Razorpay" />
+        <activity android:name=".ui.pendingcustomer"></activity>
     </application>
 
 </manifest>
