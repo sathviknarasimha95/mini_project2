@@ -17,6 +17,8 @@
     <string name="nav"></string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-
+    <string name="err_name">Enter Valid Name</string>
+    <string name="email_error">Enter Valid Email</string>
+    <string name="mob_error">Enter Valid Phno</string>
 
 </resources>

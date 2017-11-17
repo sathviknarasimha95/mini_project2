@@ -57,6 +57,13 @@ public interface UserLogin {
             @Field("CustomerId") String CustomerId,
             @Field("email") String email,
             @Field("status") String status);
+    @FormUrlEncoded
+    @POST("/updatepassword")
+    Call<Updatepending> updatepassword(
+            @Field("CustomerId") String CustomerId,
+            @Field("password") String password,
+            @Field("email") String email);
+
 
 
 }

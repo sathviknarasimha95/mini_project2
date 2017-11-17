@@ -73,6 +73,7 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
     private Drawer result;
     private CoordinatorLayout coordinatorLayout;
     private ActionBarDrawerToggle toggle;
+    String email;
 
 
 
@@ -90,6 +91,7 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
         create_recyclerview();
         String firebasetoken = FirebaseInstanceId.getInstance().getToken();
         String CustomerId = get_sharedpref("CustomerId");
+        email = get_sharedpref("email");
         //Toast.makeText(getApplicationContext(), FirebaseInstanceId.getInstance().getToken(),Toast.LENGTH_SHORT).show();
         update_token(firebasetoken,CustomerId);
 
@@ -101,11 +103,12 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
     {
 
         String username = get_sharedpref("Username");
+        String email = get_sharedpref("email");
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
                 .addProfiles(
-                        new ProfileDrawerItem().withName(username).withEmail("sathviknarasimha@gmail.com").withIcon(getResources().getDrawable(R.drawable.avatar))
+                        new ProfileDrawerItem().withName(username).withEmail(email).withIcon(getResources().getDrawable(R.drawable.avatar))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -130,6 +133,11 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
 
                                 if(position == 9) {
                                     logout();
+                                }
+                                else if(position == 1)
+                                {
+                                    Intent gotoprofile = new Intent(getApplicationContext(),ProfileActivity.class);
+                                    startActivity(gotoprofile);
                                 }
                                 else if(position == 2)
                                 {
@@ -407,6 +415,7 @@ public class MainActivity extends BaseActivity implements BaseSliderView.OnSlide
     {
         SharedPreferences SharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
         String defaultValue = "DefaultName";
+        //Toast.makeText(getApplicationContext(),SharedPref.getString(data,defaultValue),Toast.LENGTH_LONG).show();
         return SharedPref.getString(data,defaultValue);
 
     }

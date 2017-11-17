@@ -1,7 +1,9 @@
 package com.example.sathvik.android_test.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Razorpay extends AppCompatActivity implements PaymentResultListener {
     private static final String TAG = Razorpay.class.getSimpleName();
+    String FileName = "Login_fine";
     String OrderID;
     String OrderPrice;
 
@@ -95,6 +98,7 @@ public class Razorpay extends AppCompatActivity implements PaymentResultListener
     @Override
     public void onPaymentSuccess(String razorpayPaymentID) {
         try {
+            String email = get_sharedpref("email");
             Toast.makeText(this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
             Date cDate = new Date();
             String fDate = new SimpleDateFormat("yyyy/MM/dd").format(cDate);
@@ -103,7 +107,7 @@ public class Razorpay extends AppCompatActivity implements PaymentResultListener
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             PaymentDetails paymentDetails = retrofit.create(PaymentDetails.class);
-            Call<PaymentDet> razorpay = paymentDetails.updateRazorpay(OrderID,fDate,razorpayPaymentID);
+            Call<PaymentDet> razorpay = paymentDetails.updateRazorpay(OrderID,fDate,razorpayPaymentID,email);
             razorpay.enqueue(new Callback<PaymentDet>() {
                 @Override
                 public void onResponse(Call<PaymentDet> call, Response<PaymentDet> response) {
@@ -136,5 +140,13 @@ public class Razorpay extends AppCompatActivity implements PaymentResultListener
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentError", e);
         }
+    }
+    public String get_sharedpref(String data)
+    {
+        SharedPreferences SharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
+        String defaultValue = "DefaultName";
+        //Toast.makeText(getApplicationContext(),SharedPref.getString(data,defaultValue),Toast.LENGTH_LONG).show();
+        return SharedPref.getString(data,defaultValue);
+
     }
 }

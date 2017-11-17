@@ -66,13 +66,13 @@ public class Login extends AppCompatActivity {
                         int CustomerId = data.getCustomerId();
                         Log.i("Login", "info:" + Logininfo);
                         if(Logininfo.equals("login_successfull") && role.equals("user")) {
-                            saveLoginDetails(Logininfo,Token,Username,role,CustomerId);
+                            saveLoginDetails(Logininfo,Token,Username,role,CustomerId,emails);
                             //readDetails();
                             Intent mains = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(mains);
                         }else if(Logininfo.equals("login_successfull") && role.equals("admin"))
                         {
-                            saveLoginDetails(Logininfo,Token,Username,role,CustomerId);
+                            saveLoginDetails(Logininfo,Token,Username,role,CustomerId,emails);
                             //readDetails();
                             Intent mains = new Intent(getApplicationContext(), AdminActivity.class);
                             startActivity(mains);
@@ -103,10 +103,10 @@ public class Login extends AppCompatActivity {
                 startActivity(gotosignup);
             }
         });
-
+            readDetails();
     }
 
-    public void saveLoginDetails(String Status,String Token,String Name,String role,int CustomerId)
+    public void saveLoginDetails(String Status,String Token,String Name,String role,int CustomerId,String email)
     {
 
         SharedPreferences LoginSharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
@@ -116,8 +116,8 @@ public class Login extends AppCompatActivity {
         editor.putString("Token",Token.toString());
         editor.putString("Role",role.toString());
         editor.putString("CustomerId",CustomerId+"");
-        Log.i("CustomerId",CustomerId+"");
-
+        editor.putString("email",email);
+        Log.i("CustomerId",email+"");
         editor.commit();
         Log.i("Login","Data written successfuly");
         return;
@@ -127,6 +127,8 @@ public class Login extends AppCompatActivity {
         SharedPreferences LoginSharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
         String defaultValue = "DefaultName";
         String username = LoginSharedPref.getString("Token",defaultValue);
+        String email = LoginSharedPref.getString("email",defaultValue);
+        Log.i("Login email","Data read successfuly"+email);
         Log.i("Login","Data read successfuly"+username);
     }
     public void onBackPressed() {

@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -57,7 +57,8 @@
             android:value="rzp_test_7BWzOJeq2kX2pU" />
 
         <activity android:name=".ui.Razorpay" />
-        <activity android:name=".ui.pendingcustomer"></activity>
+        <activity android:name=".ui.pendingcustomer" />
+        <activity android:name=".ui.ProfileActivity"></activity>
     </application>
 
 </manifest>

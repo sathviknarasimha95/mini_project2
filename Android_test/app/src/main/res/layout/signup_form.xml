@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroller"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -116,7 +122,6 @@
         </android.support.design.widget.TextInputLayout>
 
 
-
         <Button
             android:id="@+id/btnClear"
             android:layout_width="match_parent"
@@ -124,7 +129,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="19dp"
             android:background="#fff"
             android:text="Clear"
             android:textColor="@color/colorSecondary"
@@ -152,3 +156,5 @@
         android:layout_alignParentBottom="true"
         ></android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>
+
+</ScrollView>

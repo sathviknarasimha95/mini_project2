@@ -25,6 +25,6 @@ public interface PaymentDetails {
 
     @FormUrlEncoded
     @POST("/updatepaymentrazor")
-    Call<PaymentDet> updateRazorpay(@Field("OrderId") String OrderId,@Field("date") String date,@Field("transid") String TransId);
+    Call<PaymentDet> updateRazorpay(@Field("OrderId") String OrderId,@Field("date") String date,@Field("transid") String TransId,@Field("email") String email);
 
 }

@@ -16,6 +16,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,8 +26,11 @@ import com.example.sathvik.android_test.R;
 import com.example.sathvik.android_test.adapters.AdminMenuAdapter;
 import com.example.sathvik.android_test.adapters.Admin_Adapter;
 import com.example.sathvik.android_test.adapters.ProdMenuAdapter;
+import com.example.sathvik.android_test.api.UserLogin;
 import com.example.sathvik.android_test.models.AdminMenu;
 import com.example.sathvik.android_test.models.ProdMenu;
+import com.example.sathvik.android_test.models.TokenInfo;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -38,6 +42,12 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdminActivity extends BaseActivity {
     String[] titles = {"Ongoing Orders","Completed Orders","Pending Order","Payments","Order History"};
@@ -57,6 +67,18 @@ public class AdminActivity extends BaseActivity {
         Admin_list.setAdapter(adapter);*/
 
         create_recyclerview();
+        String firebasetoken = FirebaseInstanceId.getInstance().getToken();
+
+        String CustomerId = get_sharedpref("CustomerId");
+        update_token(firebasetoken,CustomerId);
+
+    }
+    public String get_sharedpref(String data)
+    {
+        SharedPreferences SharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
+        String defaultValue = "DefaultName";
+        //Toast.makeText(getApplicationContext(),SharedPref.getString(data,defaultValue),Toast.LENGTH_LONG).show();
+        return SharedPref.getString(data,defaultValue);
 
     }
 
@@ -172,5 +194,26 @@ public class AdminActivity extends BaseActivity {
         });
         alert.show();
 
+    }
+    public void update_token(String token,String CustomerId)
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getApplicationContext().getString(R.string.uri))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UserLogin updatetoken = retrofit.create(UserLogin.class);
+        Call<TokenInfo> call = updatetoken.updateToken(token,CustomerId);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                //Toast.makeText(getApplicationContext(),"Update token success",Toast.LENGTH_SHORT).show();
+                Log.i("fires token=","Updated successfully");
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                //Toast.makeText(getApplicationContext(),"Update token failure",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
