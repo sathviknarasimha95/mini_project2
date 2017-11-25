@@ -51,7 +51,7 @@ public class Sign_up extends AppCompatActivity {
         awesomeValidation.addValidation(this, R.id.txtname, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.err_name);
         awesomeValidation.addValidation(this, R.id.txtemail, Patterns.EMAIL_ADDRESS, R.string.email_error);
         awesomeValidation.addValidation(this, R.id.txtmobileno, "^[2-9]{2}[0-9]{8}$", R.string.mob_error);
-        awesomeValidation.addValidation(this, R.id.txtaddress, "[A-Za-z0-9'\\.\\-\\s\\,]", R.string.mob_error);
+        //awesomeValidation.addValidation(this, R.id.txtaddress, "[a-z]", R.string.mob_error);
 
         Button sign = (Button) findViewById(R.id.btnSignUp);
         sign.setOnClickListener(new View.OnClickListener() {

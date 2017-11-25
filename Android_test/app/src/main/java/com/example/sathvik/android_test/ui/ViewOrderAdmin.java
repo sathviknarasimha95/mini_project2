@@ -38,16 +38,22 @@ public class ViewOrderAdmin extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String status = bundle.getString("OrderStatus");
         voadmin = (ListView) findViewById(R.id.view_order_admin);
-        voadmin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent orderdetails = new Intent(getApplicationContext(),OrderDetailCustomer.class);
-                orderdetails.putExtra("OrderId", OrderId[i]);
-                orderdetails.putExtra("PaymentStatus",PaymentStatus[i]);
-                orderdetails.putExtra("Status",status);
-                startActivity(orderdetails);
-            }
-        });
+        if(status.equals("All"))
+        {
+
+        }
+        else {
+            voadmin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent orderdetails = new Intent(getApplicationContext(), OrderDetailCustomer.class);
+                    orderdetails.putExtra("OrderId", OrderId[i]);
+                    orderdetails.putExtra("PaymentStatus", PaymentStatus[i]);
+                    orderdetails.putExtra("Status", status);
+                    startActivity(orderdetails);
+                }
+            });
+        }
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getApplicationContext().getString(R.string.uri))
                 .addConverterFactory(GsonConverterFactory.create())

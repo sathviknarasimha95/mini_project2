@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,9 +17,11 @@ import android.widget.Toast;
 
 import com.example.sathvik.android_test.R;
 import com.example.sathvik.android_test.adapters.GetorderscustAdapter;
+import com.example.sathvik.android_test.api.GetOrderDetails;
 import com.example.sathvik.android_test.api.GetOrders;
 import com.example.sathvik.android_test.models.Inventory;
 import com.example.sathvik.android_test.models.OrderCustomer;
+import com.example.sathvik.android_test.models.Updatepending;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -53,6 +58,46 @@ public class OrderList_Customer extends AppCompatActivity {
                 startActivity(orderdetails);
             }
         });
+        if(status.equals("Pending") || status.equals("Ongoing")) {
+            golv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    PopupMenu options = new PopupMenu(OrderList_Customer.this, view, Gravity.NO_GRAVITY);
+
+
+                    options.getMenuInflater().inflate(R.menu.option_to_customer, options.getMenu());
+                    options.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            String todo = item.getTitle().toString();
+                            if (todo.equals("Cancel Order")) {
+                                //Toast.makeText(getApplicationContext(), OrderIds[position], Toast.LENGTH_LONG).show();
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(getApplicationContext().getString(R.string.uri))
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+                                GetOrderDetails Canceluser = retrofit.create(GetOrderDetails.class);
+                                Call<Updatepending> canceluser = Canceluser.canceluser(OrderIds[position]);
+                                canceluser.enqueue(new Callback<Updatepending>() {
+                                    @Override
+                                    public void onResponse(Call<Updatepending> call, Response<Updatepending> response) {
+                                        Toast.makeText(getApplicationContext(),"the Order has been cancelled  by user",Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Updatepending> call, Throwable t) {
+                                        Toast.makeText(getApplicationContext(),"some thing went wrong",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                            return true;
+                        }
+                    });
+                    options.show();
+                    return true;
+                }
+            });
+        }
         SharedPreferences LoginSharedPref = getSharedPreferences(FileName, Context.MODE_PRIVATE);
         String defaultValue = "DefaultName";
         int CustomerId = Integer.parseInt(LoginSharedPref.getString("CustomerId",defaultValue));

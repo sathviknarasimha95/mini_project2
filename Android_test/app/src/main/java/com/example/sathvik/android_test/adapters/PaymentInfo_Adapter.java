@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sathvik.android_test.R;
@@ -45,7 +46,9 @@ public class PaymentInfo_Adapter extends ArrayAdapter<String>{
         TextView payment_price = (TextView)rowView.findViewById(R.id.customer_phno);
         TextView payment_orderid = (TextView)rowView.findViewById(R.id.Customerid_pen);
         TextView payment_ordestatus = (TextView)rowView.findViewById(R.id.payment_orderstatusCustomer);
-        String tdate = Date[position].substring(1,10);
+        ImageView payment_img = (ImageView) rowView.findViewById(R.id.payment_image);
+        
+        String tdate = Date[position].substring(0,10);
         payment_date.setText(tdate);
         payment_price.setText(OrderPrice[position]);
         payment_orderid.setText(OrderId[position]);

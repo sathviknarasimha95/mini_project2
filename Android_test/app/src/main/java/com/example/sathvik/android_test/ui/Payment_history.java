@@ -75,12 +75,15 @@ public class Payment_history extends AppCompatActivity {
                     PaymentStatus[i] = paymentHistory.getPaymentStatus();
                     PaymentDate[i] = paymentHistory.getPaymentDate();
                     PaymentType[i] = paymentHistory.getPaymentType();
+                   // Toast.makeText(getApplicationContext(),PaymentType[i],Toast.LENGTH_SHORT).show();
                     i++;
                 }
+
                 for(int j = 0 ; j<response.body().size();j++)
                 {
                     Payment_historyadp ph = new Payment_historyadp(OrderId[j], OrderPrice[j],
                             PaymentStatus[j],PaymentDate[j],PaymentType[j]);
+                    //Toast.makeText(getApplicationContext(),PaymentType[j],Toast.LENGTH_SHORT).show();
                     arraylist.add(ph);
                 }
                 adapter = new PaymentHistory_Adapter(getApplicationContext(),arraylist);

@@ -2,6 +2,7 @@ package com.example.sathvik.android_test.api;
 
 import com.example.sathvik.android_test.models.OrderCustomerDetails;
 import com.example.sathvik.android_test.models.Otpgen;
+import com.example.sathvik.android_test.models.Updatepending;
 
 import java.util.List;
 
@@ -21,7 +22,12 @@ public interface GetOrderDetails {
             @Field("OrderId") String OrderId
 
     );
+    @FormUrlEncoded
+    @POST("/canceluser")
+    Call<Updatepending> canceluser(
+            @Field("OrderId") String OrderId
 
+    );
 
 
 }

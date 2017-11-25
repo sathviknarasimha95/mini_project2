@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class PaymentHistory_Adapter  extends ArrayAdapter {
     TextView payment_price;
     TextView payment_orderid;
     TextView payment_status;
+    ImageView payment_img;
     String[] OrderId;
     String[] Payment_status;
     String[] PaymentDate;
@@ -83,10 +85,19 @@ public class PaymentHistory_Adapter  extends ArrayAdapter {
         payment_price = (TextView) rowView.findViewById(R.id.paymenthistory_orderprice);
         payment_orderid = (TextView) rowView.findViewById(R.id.paymenthistory_orderid);
         payment_status = (TextView) rowView.findViewById(R.id.paymenthistory_orderstatus);
+        payment_img = (ImageView) rowView.findViewById(R.id.payment_image);
         payment_date.setText(Payment_history.get(position).getPaymentDate());
         payment_price.setText(Payment_history.get(position).getOrderPrice());
         payment_orderid.setText(Payment_history.get(position).getOrderId());
         payment_status.setText(Payment_history.get(position).getPaymentStatus());
+        if(Payment_history.get(position).getPaymentType().equals("CARD")) {
+            payment_img.setImageResource(R.drawable.card);
+        }
+        else if(Payment_history.get(position).getPaymentType().equals("CASH"))
+        {
+            payment_img.setImageResource(R.drawable.cash);
+        }
+//        Toast.makeText(context,PaymentType[position],Toast.LENGTH_SHORT).show();
         return rowView;
     }
 
